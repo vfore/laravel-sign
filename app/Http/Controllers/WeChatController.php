@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Log;
 
 class WeChatController extends Controller
 {
@@ -13,7 +14,7 @@ class WeChatController extends Controller
 
         $wechat = app('wechat');
         $wechat->server->setMessageHandler(function($message){
-            return "欢迎关注 overtrue！";
+            return "欢迎关注 gddoin";
         });
 
         Log::info('return response.');
@@ -23,7 +24,7 @@ class WeChatController extends Controller
 
     public function user()
     {
-        $user = session('wechat.oauth_user');
+        $WeChatUser = session('wechat.oauth_user');
         return view('user');
     }
 
@@ -43,10 +44,10 @@ class WeChatController extends Controller
         }
     }
 
-    public function sign(Request $request)
+    public function sign($id)
     {
         $WeChatUser = session('wechat.oauth_user');
-        $status = User::where('openid', $WeChatUser->id)->where('activity_id', $request->input('k'))->update(['status' => 1]);
+        $status = User::where('openid', $WeChatUser->id)->where('activity_id', $id)->update(['status' => 1]);
         if ($status) {
             return view('sign')->with('tip', '签到成功');
         } else {
@@ -60,7 +61,7 @@ class WeChatController extends Controller
         $menu = $app->menu;
         $buttons = [
             [
-                "type" => "click",
+                "type" => "view",
                 "name" => "签到测试",
                 "key"  => "V1001_TODAY_MUSIC",
                 "url"  => "http://wechat.srise.xin/user"

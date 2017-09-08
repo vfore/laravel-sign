@@ -8,6 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-<img src="http://qr.topscan.com/api.php?text={{url('sign')}}&k=1" alt="">
+<img src="http://qr.topscan.com/api.php?text={{url('sign/1')}}" alt="">
 </body>
 </html>

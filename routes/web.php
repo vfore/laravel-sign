@@ -18,9 +18,9 @@ Route::get('/', function () {
 Route::any('/wechat', 'WeChatController@serve');
 
 Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
-    Route::get('/user', 'WeChatController@user');
-    Route::get('/sign', 'WeChatController@sign');
-    Route::post('/index', 'WeChatController@index');
+	Route::get('/user', 'WeChatController@user');
+    Route::get('/sign/{id}', 'WeChatController@sign');
+    Route::any('/index', 'WeChatController@index');
     Route::get('/confirm', function () {
         return view('confirm');
     });
